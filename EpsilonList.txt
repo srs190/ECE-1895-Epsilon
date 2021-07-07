@@ -10,3 +10,8 @@ PCB for LCD
 arduino .MP3 shield: https://www.adafruit.com/product/1788
 arduino uno
 arduino capacitive touch shield: https://www.adafruit.com/product/2024
+Steven - software
+Bruce - 
+Emily - 
+
+Mounting standards - 
