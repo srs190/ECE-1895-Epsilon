@@ -6,6 +6,7 @@ User Input funcitonality:
  
  Will have full voice command functionality
 PCB for LCD
+LCD : 
 
 arduino .MP3 shield: https://www.adafruit.com/product/1788
 arduino uno
