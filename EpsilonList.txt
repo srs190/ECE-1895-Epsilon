@@ -1,8 +1,8 @@
 
 User Input funcitonality: 
  1.touch it
- 2.slide it
- 3.Spin it
+ 2.slide it (https://www.sparkfun.com/products/14330)
+ 3.Spin it (https://www.sparkfun.com/products/11951)
  
  Will have full voice command functionality
 
