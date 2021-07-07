@@ -2,6 +2,11 @@
 User Input funcitonality: 
  1.touch it
  2.slide it
- 3.Spin it ( https://www.sparkfun.com/products/11951 )
+ 3.Spin it
  
  Will have full voice command functionality
+
+
+arduino .MP3 shield: https://www.adafruit.com/product/1788
+arduino uno
+arduino capacitive touch shield: https://www.adafruit.com/product/2024
