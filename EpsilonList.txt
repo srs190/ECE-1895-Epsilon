@@ -1,1 +1,7 @@
 
+User Input funcitonality: 
+ 1.touch it
+ 2.slide it
+ 3.Spin it
+ 
+ Will have full voice command functionality
