@@ -5,7 +5,7 @@ User Input funcitonality:
  3.Spin it (https://www.sparkfun.com/products/11951)
  
  Will have full voice command functionality
-
+PCB for LCD
 
 arduino .MP3 shield: https://www.adafruit.com/product/1788
 arduino uno
