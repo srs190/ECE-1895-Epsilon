@@ -1,5 +1,8 @@
 
+
+//Hello, This is Steve's comment for git
 int val;
+//Emily Richard
 void setup() {
   // put your setup code here, to run once:
 
@@ -14,9 +17,11 @@ void loop() {
   if(digitalRead(7)==LOW)
   {
     digitalWrite(9, HIGH); // sets the digital pin 13 on
-    delay(1000);            // waits for a second
+    delay(100);            // waits for a second
     digitalWrite(9, LOW);  // sets the digital pin 13 off
-    delay(1000);            // waits for a second
+    delay(100);            // waits for a second
   }
 
 }
+
+
