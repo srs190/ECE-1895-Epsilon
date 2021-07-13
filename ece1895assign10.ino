@@ -1,10 +1,10 @@
-
+//This is Steve commenting on my branch
 int val;
 void setup() {
   // put your setup code here, to run once:
 
   pinMode(9,OUTPUT);
-  pinMode(7,INPUT);
+  pinMode(7,INPUT); 
   
 }
 
