@@ -1,6 +1,6 @@
 
 int val;
-// Emily Richard
+//Emily Richard
 void setup() {
   // put your setup code here, to run once:
 
