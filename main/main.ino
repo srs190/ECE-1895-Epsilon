@@ -60,12 +60,21 @@ void loop() {
 boolean touchIt()
 {
   //touch it voice
+  for(int i=0;i<gamespeed;i++)
+  {
+    
+  }
   return true;  
 }
 
 boolean spinIt()
 {
   //spin it voice
+
+  for(int i=0;i<gamespeed;i++)
+  {
+    
+  }
   return true;  
 }
 
@@ -73,6 +82,10 @@ boolean slideIt()
 {
 
  //slideIt voice
+  for(int i=0;i<gamespeed;i++)
+  {
+    
+  }
   return true;
 }
 
