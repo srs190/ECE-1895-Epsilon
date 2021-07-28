@@ -1,3 +1,16 @@
+/*Voice files needed:
+successVoice
+GameOverVoice
+startUpVoice
+SlideIt Voice
+SpinItVoice
+TouchITVoice
+
+ * 
+ * 
+ * 
+ */
+
 
 int randNum;
 boolean success;
@@ -32,7 +45,7 @@ void loop() {
       success=slideIt();
       break;        
   }
-
+ //successvoice
   
  if(success==false)
  {
@@ -46,20 +59,20 @@ void loop() {
 
 boolean touchIt()
 {
-
+  //touch it voice
   return true;  
 }
 
 boolean spinIt()
 {
-
+  //spin it voice
   return true;  
 }
 
 boolean slideIt()
 {
 
-
+ //slideIt voice
   return true;
 }
 
@@ -69,6 +82,6 @@ void voice(String fileName)
 }
 void endGame()
 {
-
+  //gameoverVoice
   
 }
