@@ -1,0 +1,90 @@
+Main()
+{
+
+ setupVars();
+ initializeComponents(); //only runs once
+ startUpUI();
+ startUpVoice();
+ waitForStartbuttonPress();
+ gameStartVoice();
+
+
+ infiniteLoop 
+{
+	randomValGenerate();
+	switch case for randomVal:
+	{
+		1: touchIt();
+		2: spinIt();
+		3: slideIt();
+
+	}
+	if( User successful)
+	{
+		speedUpGame();
+		addToScore();
+		successVoice();
+	}
+	else
+	{
+		failVoice();
+		breakLoop();
+
+	}
+
+}
+outputStats();
+endGameVoice();
+loopToStart();
+}
+
+touchIt();
+{
+	prepTouchSensor();
+	voiceTouchit();
+	for(0:gameSpeed)
+	{
+	   if(sensorTouched())
+	   {
+	   		return successful;
+	   }
+	}
+
+	return notSuccessful;
+}
+spinIt()
+{
+	prepSpinSensor();
+	voiceSpinIt();
+	for(0:gameSpeed)
+	{
+	   if(sensorSpinned())
+	   {
+	   		return successful;
+	   }
+	}
+	wait(oneUnitOfTime);
+
+	return notSuccessful
+	}
+slideIt()
+{
+	prepSlideSensor();
+	voiceSlideIt();
+	for(0:gameSpeed)
+	{
+	   if(sensorSlid())
+	   {
+	   		return successful;
+	   }
+	}
+
+	return notSuccessful;
+}
+anyVoiceOutput(string .MP3 file name)
+{
+	find(.MP3 file);
+	play(.MP3 file);
+
+
+}
