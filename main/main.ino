@@ -2,17 +2,33 @@
 #include <Adafruit_VS1053.h>
 #include <SD.h>
 /*Voice files needed:
-successVoice
-GameOverVoice
-startUpVoice
-SlideIt Voice
-SpinItVoice
-TouchITVoice
+successVoice  /track001.mp3
+GameOverVoice  /track002.mp3
+startUpVoice  /track003.mp3
+SlideIt Voice  /track004.mp3
+SpinItVoice    /track005.mp3
+TouchITVoice   /track006.mp3
 
  * 
  * 
  * 
  */
+
+#include <Wire.h>
+#include "Adafruit_MPR121.h"
+
+#ifndef _BV
+#define _BV(bit) (1 << (bit)) 
+#endif
+
+// You can have up to 4 on one i2c bus but one is enough for testing!
+Adafruit_MPR121 cap = Adafruit_MPR121();
+
+uint16_t lasttouched = 0;
+uint16_t currtouched = 0;
+
+
+
 
 
  
@@ -42,14 +58,29 @@ Adafruit_VS1053_FilePlayer musicPlayer =
   //Adafruit_VS1053_FilePlayer(BREAKOUT_RESET, BREAKOUT_CS, BREAKOUT_DCS, DREQ, CARDCS);
   // create shield-example object!
   Adafruit_VS1053_FilePlayer(SHIELD_RESET, SHIELD_CS, SHIELD_DCS, DREQ, CARDCS);
-#define slidePin -1
-#define spinPin -1  
+
+  
+#define slidePin 2
+#define spinPin A2 
 
 
 int randNum;
 boolean success;
 int gameSpeed;
+int score;
+
+
+
 void setup() {
+
+  Serial.begin(9600);
+
+  while (!Serial) { // needed to keep leonardo/micro from starting too fast!
+    delay(10);
+  }
+  
+
+  
   // put your setup code here, to run once:
   randomSeed(analogRead(0)); //need to know empty analog pin
 
@@ -67,18 +98,38 @@ void setup() {
     while (1);  // don't do anything more
   }
     // list files
-  printDirectory(SD.open("/"), 0);
-  voice("filename")
+  //printDirectory(SD.open("/"), 0);
+  //voice("filename");
   // Set volume for left, right channels. lower numbers == louder volume!
   musicPlayer.setVolume(20,20);
 
 
+
+
+
+
+
+
+  if (!cap.begin(0x5A)) {
+    Serial.println("MPR121 not found, check wiring?");
+    while (1);
+  }
+  Serial.println("MPR121 found!");
+
+
+
+
+  pinMode(slidePin, INPUT);
+  pinMode(spinPin, INPUT);
   
   //waitForStartbuttonPress();
-  //gameStartVoice();
-  //SetupGameSpeed;
+  voice("/track003.mp3");
   gameSpeed=100;
+  score=0;
 
+
+
+  waitforStart();
   
 }
 
@@ -99,7 +150,7 @@ void loop() {
       break;        
   }
  //successvoice
-  
+  voice("/track001.mp3");
  if(success==false)
  {
   endGame();
@@ -113,42 +164,92 @@ void loop() {
 boolean touchIt()
 {
   //touch it voice
-  for(int i=0;i<gamespeed;i++)
+  voice("/track006.mp3");
+  Serial.write("touch It!!");
+  for(int i=0;i<gameSpeed;i++)
   {
-    
+    currtouched = cap.touched();
+
+    for (uint8_t i=0; i<12; i++) 
+    {
+      // it if *is* touched and *wasnt* touched before, alert!
+      if ((currtouched & _BV(i))) {
+        Serial.print(i); Serial.println(" touched");
+        return true;
+      }
+    }
+    delay(100);
   }
-  return true;  
+  return false;  
 }
 
 boolean spinIt()
 {
   //spin it voice
-
-  for(int i=0;i<gamespeed;i++)
-  {
+    voice("/track005.mp3");
+    Serial.write("spin It!!");
     
-  }
-  return true;  
+    int temp=analogRead(spinPin);
+   //slideIt voice
+    for(int i=0;i<gameSpeed;i++)
+    {
+      if(abs(temp-analogRead(spinPin))>300)
+       {
+        return true;
+        score++;
+       }
+       delay(100);
+    }
+    
+    return false;  
 }
 
 boolean slideIt()
 {
-
+  int temp=(int)digitalRead(slidePin);
+  Serial.write("slide It!!");
+  voice("/track004.mp3");
  //slideIt voice
-  for(int i=0;i<gamespeed;i++)
+ 
+  for(int i=0;i<gameSpeed;i++)
   {
-    
+    if(abs(temp-(int)digitalRead(slidePin))>=1)
+     {
+      return true;
+      score++;
+     }
+     delay(100);
   }
-  return true;
+  return false;
 }
 
-void voice(String fileName)
+void voice(String fileName) //format: /track001.mp3
 {
+  const char *cstr = fileName.c_str();
   
+  musicPlayer.playFullFile(cstr);
 }
 void endGame()
 {
   //gameoverVoice
   //display final score
+  voice("/track002.mp3");
+  Serial.write("Game Over! score:"+ score);
+  //wait for start button press
+  waitforStart();
+  score=0;
+  gameSpeed=100;
   
+}
+
+void waitforStart()
+{
+    int temp=(int)digitalRead(slidePin);
+  while(1)
+  {
+     if(abs(temp-(int)digitalRead(slidePin))>=1)
+     {
+        break;
+     }
+  }
 }
