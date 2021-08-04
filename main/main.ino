@@ -53,11 +53,11 @@ uint16_t currtouched = 0;
 // DREQ should be an Int pin, see http://arduino.cc/en/Reference/attachInterrupt
 #define DREQ 3       // VS1053 Data request, ideally an Interrupt pin
 
-Adafruit_VS1053_FilePlayer musicPlayer = 
+//Adafruit_VS1053_FilePlayer musicPlayer = 
   // create breakout-example object!
   //Adafruit_VS1053_FilePlayer(BREAKOUT_RESET, BREAKOUT_CS, BREAKOUT_DCS, DREQ, CARDCS);
   // create shield-example object!
-  Adafruit_VS1053_FilePlayer(SHIELD_RESET, SHIELD_CS, SHIELD_DCS, DREQ, CARDCS);
+ // Adafruit_VS1053_FilePlayer(SHIELD_RESET, SHIELD_CS, SHIELD_DCS, DREQ, CARDCS);
 
   
 #define slidePin 2
@@ -87,11 +87,11 @@ void setup() {
   //startUpUI();
   //startUpVoice();
 
-  if (! musicPlayer.begin()) { // initialise the music player
-     Serial.println(F("Couldn't find VS1053, do you have the right pins defined?"));
-     while (1);
-  }
-  Serial.println(F("VS1053 found"));
+//  if (! musicPlayer.begin()) { // initialise the music player
+    // Serial.println(F("Couldn't find VS1053, do you have the right pins defined?"));
+   //  while (1);
+//  }
+  //Serial.println(F("VS1053 found"));
   
    if (!SD.begin(CARDCS)) {
     Serial.println(F("SD failed, or not present"));
@@ -100,8 +100,8 @@ void setup() {
     // list files
   //printDirectory(SD.open("/"), 0);
   //voice("filename");
-  // Set volume for left, right channels. lower numbers == louder volume!
-  musicPlayer.setVolume(20,20);
+  // Set volume for left, right channels. lower numbers == louder volume!//
+ // musicPlayer.setVolume(20,20);
 
 
 
