@@ -47,7 +47,7 @@ uint16_t currtouched = 0;
 #define SHIELD_RESET  -1      // VS1053 reset pin (unused!)
 #define SHIELD_CS     7      // VS1053 chip select pin (output)
 #define SHIELD_DCS    6      // VS1053 Data/command select pin (output)
-
+#define PIEZO         9
 // These are common pins between breakout and shield
 #define CARDCS 4     // Card chip select pin
 // DREQ should be an Int pin, see http://arduino.cc/en/Reference/attachInterrupt
@@ -121,9 +121,9 @@ void setup() {
 
   pinMode(slidePin, INPUT);
   pinMode(spinPin, INPUT);
-  
+  pinMode(PIEZO, OUTPUT);
   //waitForStartbuttonPress();
-  voice("/track003.mp3");
+ piezo();
   gameSpeed=100;
   score=0;
 
@@ -150,7 +150,7 @@ void loop() {
       break;        
   }
  //successvoice
-  voice("/track001.mp3");
+  piezo();
  if(success==false)
  {
   endGame();
@@ -164,7 +164,7 @@ void loop() {
 boolean touchIt()
 {
   //touch it voice
-  voice("/track006.mp3");
+  piezo();
   Serial.write("touch It!!");
   for(int i=0;i<gameSpeed;i++)
   {
@@ -186,7 +186,7 @@ boolean touchIt()
 boolean spinIt()
 {
   //spin it voice
-    voice("/track005.mp3");
+    piezo();
     Serial.write("spin It!!");
     
     int temp=analogRead(spinPin);
@@ -208,7 +208,7 @@ boolean slideIt()
 {
   int temp=(int)digitalRead(slidePin);
   Serial.write("slide It!!");
-  voice("/track004.mp3");
+  piezo();
  //slideIt voice
  
   for(int i=0;i<gameSpeed;i++)
@@ -223,17 +223,20 @@ boolean slideIt()
   return false;
 }
 
-void voice(String fileName) //format: /track001.mp3
+void piezo(void) //format: /track001.mp3
 {
-  const char *cstr = fileName.c_str();
-  
-  musicPlayer.playFullFile(cstr);
+
+  tone(buzzer, 1000); // Send 1KHz sound signal...
+  delay(1000);        // ...for 1 sec
+  noTone(buzzer);     // Stop sound...
+  delay(1000);        // ...for 1sec
+
 }
 void endGame()
 {
   //gameoverVoice
   //display final score
-  voice("/track002.mp3");
+  piezo();
   Serial.write("Game Over! score:"+ score);
   //wait for start button press
   waitforStart();
