@@ -123,7 +123,7 @@ void setup() {
   pinMode(spinPin, INPUT);
   pinMode(PIEZO, OUTPUT);
   //waitForStartbuttonPress();
- piezo();
+ piezoStart();
   gameSpeed=100;
   score=0;
 
@@ -150,7 +150,7 @@ void loop() {
       break;        
   }
  //successvoice
-  piezo();
+  piezoRight();
  if(success==false)
  {
   endGame();
@@ -164,7 +164,7 @@ void loop() {
 boolean touchIt()
 {
   //touch it voice
-  piezo();
+  piezoTouch();
   Serial.write("touch It!!");
   for(int i=0;i<gameSpeed;i++)
   {
@@ -186,7 +186,7 @@ boolean touchIt()
 boolean spinIt()
 {
   //spin it voice
-    piezo();
+    piezoSpin();
     Serial.write("spin It!!");
     
     int temp=analogRead(spinPin);
@@ -208,7 +208,7 @@ boolean slideIt()
 {
   int temp=(int)digitalRead(slidePin);
   Serial.write("slide It!!");
-  piezo();
+  piezoSlide();
  //slideIt voice
  
   for(int i=0;i<gameSpeed;i++)
@@ -223,10 +223,55 @@ boolean slideIt()
   return false;
 }
 
-void piezo(void) //format: /track001.mp3
+void piezoRight(void) //format: /track001.mp3
 {
 
   tone(buzzer, 1000); // Send 1KHz sound signal...
+  delay(1000);        // ...for 1 sec
+  noTone(buzzer);     // Stop sound...
+  delay(1000);        // ...for 1sec
+
+}
+void piezoSlide() //format: /track001.mp3
+{
+
+  tone(buzzer, 466); // Send 1KHz sound signal...
+  delay(1000);        // ...for 1 sec
+  noTone(buzzer);     // Stop sound...
+  delay(1000);        // ...for 1sec
+
+}
+void piezoSpin() //format: /track001.mp3
+{
+
+  tone(buzzer, 499); // Send 1KHz sound signal...
+  delay(1000);        // ...for 1 sec
+  noTone(buzzer);     // Stop sound...
+  delay(1000);        // ...for 1sec
+
+}
+void piezoTouch() //format: /track001.mp3
+{
+
+  tone(buzzer, 523); // Send 1KHz sound signal...
+  delay(1000);        // ...for 1 sec
+  noTone(buzzer);     // Stop sound...
+  delay(1000);        // ...for 1sec
+
+}
+void piezoStart() //format: /track001.mp3
+{
+
+  tone(buzzer, 2000); // Send 1KHz sound signal...
+  delay(1000);        // ...for 1 sec
+  noTone(buzzer);     // Stop sound...
+  delay(1000);        // ...for 1sec
+
+}
+void piezoEnd() //format: /track001.mp3
+{
+
+  tone(buzzer, 146); // Send 1KHz sound signal...
   delay(1000);        // ...for 1 sec
   noTone(buzzer);     // Stop sound...
   delay(1000);        // ...for 1sec
@@ -236,7 +281,7 @@ void endGame()
 {
   //gameoverVoice
   //display final score
-  piezo();
+  piezoEnd();
   Serial.write("Game Over! score:"+ score);
   //wait for start button press
   waitforStart();
